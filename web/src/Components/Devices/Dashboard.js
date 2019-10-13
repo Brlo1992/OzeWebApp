@@ -126,8 +126,7 @@ export default class Main extends React.Component {
     render() {
         return <Container>
             <br />
-            <Header content="Measure Devices List" />
-            <Header content="Measure Devices List" />
+            <Header content="Devices" />
             <br />
             <hr class="hrClass"/>
             <Subheader content="Add new device" />

@@ -6,6 +6,7 @@ import Pager from "../Common/Pager";
 import { Table } from 'reactstrap';
 import httpClient from "../../Utils/HttpClient";
 import Subheader from "../Common/Subheader";
+import ChartTabs from '../Charts/ChartTabs';
 
 export default class Main extends React.Component {
 
@@ -40,15 +41,18 @@ export default class Main extends React.Component {
         return <tbody>
             {measurements.map(measurement => <tr>
                 <th>{measurement.date}</th>
-                <th>{measurement.ac}</th>
-                <th>{measurement.dc}</th>
-                <th>{measurement.fraquency}</th>
-                <th>{measurement.temp}</th>
-                <th>{measurement.energy}</th>
-                <th>{measurement.electricity}</th>
                 <th>{measurement.tension}</th>
-                <th>{measurement.cosFi}</th>
-                <th>{measurement.power}</th></tr>)}
+                <th>{measurement.intensity}</th>
+                <th>{measurement.fraquency}</th>
+                <th>{measurement.activePower}</th>
+                <th>{measurement.ccccc}</th>
+                <th>{measurement.powerFactor}</th>
+                <th>{measurement.activeEnergy}</th>
+                <th>{measurement.tariffOne}</th>
+                <th>{measurement.reactiveEnergy}</th>
+                <th>{measurement.tariffTwo}</th>
+                <th>{measurement.tariffThree}</th>
+                <th>{measurement.spped}</th></tr>)}
         </tbody>
     }
 
@@ -74,8 +78,19 @@ export default class Main extends React.Component {
             <br />
             <Header content="Measurements" />
             <br />
-            <hr class="hrClass"/>
+            <hr class="hrClass" />
             <Subheader content={"Device " + this.props.match.params.name} />
+            <br />
+            <ChartTabs measurements={this.state.measurements.map(measurement => {
+                return {
+                   tension: measurement.tension, 
+                   intensity: measurement.intensity, 
+                   activePower: measurement.activePower, 
+                   reactivePower: measurement.reactivePower, 
+                   activeEnergy: measurement.activeEnergy, 
+                   reactiveEnergy: measurement.reactiveEnergy 
+                }
+            })} />
             <br />
             <Row>
                 <Col>
@@ -83,15 +98,18 @@ export default class Main extends React.Component {
                         <thead>
                             <tr>
                                 <th>date</th>
-                                <th>ac</th>
-                                <th>dc</th>
-                                <th>fraquency</th>
-                                <th>temp</th>
-                                <th>energy</th>
-                                <th>electricity</th>
                                 <th>tension</th>
-                                <th>cosFi</th>
-                                <th>power</th>
+                                <th>intensity</th>
+                                <th>fraquency</th>
+                                <th>active power</th>
+                                <th>reactive power</th>
+                                <th>power factor</th>
+                                <th>active energy</th>
+                                <th>tariff one</th>
+                                <th>reactive energy</th>
+                                <th>tariff two</th>
+                                <th>tariff three</th>
+                                <th>speed</th>
                             </tr>
                         </thead>
                         {this.getMeasurements()}
