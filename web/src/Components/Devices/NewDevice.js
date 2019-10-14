@@ -11,6 +11,7 @@ export default class NewDevice extends React.Component {
             name: "",
             desc: "",
             address: "",
+            type: "energyConsumer",
             interval: 0,
             nameAlertVisible: false,
             addressAlertVisible: false,
@@ -27,7 +28,8 @@ export default class NewDevice extends React.Component {
             name: this.state.name,
             desc: this.state.desc,
             address: this.state.address,
-            interval: Number(this.state.interval)
+            interval: Number(this.state.interval),
+            type: this.state.type
         }
 
         console.log(data);
@@ -60,6 +62,7 @@ export default class NewDevice extends React.Component {
             name: "",
             desc: "",
             address: "",
+            type: "energyConsumer",
             interval: 0,
             nameAlertVisible: false,
             addressAlertVisible: false,
@@ -101,6 +104,13 @@ export default class NewDevice extends React.Component {
                 this.setState({ intervalAlertVisible: true });
             else
                 this.setState({ intervalAlertVisible: false });
+        }
+        
+        if (event.target.name === "deviceType") {
+            if (event.target.value === "Energy Consumer")
+                this.setState({ type: "energyConsumer"});
+            if ((event.target.value === "Energy Generator"))
+                this.setState({  type: "energyGenerator"});
         }
     }
 
@@ -162,9 +172,18 @@ export default class NewDevice extends React.Component {
                         <Label for="interval">Interval (in seconds)</Label>
                         <Input type="number" name="interval" id="interval" onChange={this.handleChange} value={this.state.interval} placeholder="Type new device address" />
                     </FormGroup>
-                    <Alert color="danger" isOpen={this.state.intervalAlertVisible}>
-                        Interval has to be higher than 0
-                    </Alert>
+                    <FormGroup>
+                        <Label for="deviceType">Device type</Label>
+                        <Input
+                            type="select"
+                            name="deviceType"
+                            id="deviceType"
+                            onChange={this.handleChange}
+                        >
+                            <option>Energy Consumer</option>
+                            <option>Energy Generator </option>
+                        </Input>
+                    </FormGroup>
                 </Col>
             </Row>
             <Row>

@@ -13,6 +13,7 @@ export default class NewDevice extends React.Component {
             desc: this.props.editedDevice.desc,
             address: this.props.editedDevice.address,
             interval: this.props.editedDevice.interval,
+            type: this.props.editedDevice.type,
             nameAlertVisible: false,
             addressAlertVisible: false,
             intervalAlertVisible: false,
@@ -29,7 +30,8 @@ export default class NewDevice extends React.Component {
             name: this.state.name,
             desc: this.state.desc,
             address: this.state.address,
-            interval: this.state.interval
+            interval: this.state.interval,
+            type: this.state.type
         }
 
         console.log(data);
@@ -46,7 +48,7 @@ export default class NewDevice extends React.Component {
             headers: { 'Content-Type': 'application/json' }
         };
 
-        await httpClient.SendWithData(url, request, () => { 
+        await httpClient.SendWithData(url, request, () => {
             this.props.getItems()
             this.props.toggleEditDevice();
         });
@@ -60,6 +62,7 @@ export default class NewDevice extends React.Component {
             name: this.props.editedDevice.name,
             desc: this.props.editedDevice.desc,
             address: this.props.editedDevice.address,
+            type: this.props.editedDevice.type,
             interval: this.props.editedDevice.interval,
             nameAlertVisible: false,
             addressAlertVisible: false,
@@ -69,7 +72,7 @@ export default class NewDevice extends React.Component {
         });
     }
 
-    dataNotEmpty =() => {
+    dataNotEmpty = () => {
         if (this.state.name && this.state.address) {
             return true;
         }
@@ -111,6 +114,13 @@ export default class NewDevice extends React.Component {
             else
                 this.setState({ intervalAlertVisible: false });
         }
+
+        if (event.target.name === "deviceType") {
+            if (event.target.value === "Energy Consumer")
+                this.setState({ type: "energyConsumer" });
+            if ((event.target.value === "Energy Generator"))
+                this.setState({ type: "energyGenerator" });
+        }
     }
 
     getSaveButton = () => {
@@ -124,7 +134,7 @@ export default class NewDevice extends React.Component {
 
     isDataValid = () => {
         return !this.state.nameAlertVisible &&
-            !this.state.addressAlertVisible && 
+            !this.state.addressAlertVisible &&
             !this.state.intervalAlertVisible &&
             !this.state.emptyNameAlertVisible &&
             !this.state.emptyAddressAlertVisible && this.dataNotEmpty()
@@ -164,11 +174,23 @@ export default class NewDevice extends React.Component {
                     </Alert>
                     <FormGroup>
                         <Label for="interval">Interval (in seconds)</Label>
-                        <Input type="number" name="interval" id="interval" onChange={this.handleChange} value={this.state.interval}/>
+                        <Input type="number" name="interval" id="interval" onChange={this.handleChange} value={this.state.interval} />
                     </FormGroup>
                     <Alert color="danger" isOpen={this.state.intervalAlertVisible}>
                         Interval has to be higher than 0
                     </Alert>
+                    <FormGroup>
+                        <Label for="deviceType">Device type</Label>
+                        <Input
+                            type="select"
+                            name="deviceType"
+                            id="deviceType"
+                            onChange={this.handleChange}
+                        >
+                            <option>Energy Consumer</option>
+                            <option>Energy Generator </option>
+                        </Input>
+                    </FormGroup>
                 </Col>
             </Row>
             <Row>

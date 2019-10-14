@@ -9,8 +9,8 @@ export default class CustomLineChart extends PureComponent {
         console.log(this.props.data);
         return (
             <LineChart
-                width={500}
-                height={300}
+                width={this.props.width || 500}
+                height={this.props.height || 300}
                 data={this.props.data}
                 margin={{
                     top: 5, right: 30, left: 20, bottom: 5,
@@ -21,7 +21,7 @@ export default class CustomLineChart extends PureComponent {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey={this.props.name} stroke={this.props.color}activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey={this.props.name} stroke={this.props.color}activeDot={{ r: 5 }} />
             </LineChart>
         );
     }

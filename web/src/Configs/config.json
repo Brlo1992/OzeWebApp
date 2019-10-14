@@ -1,4 +1,4 @@
 {
     "itemsOnPage": 10,
-    "apiUrl": "http://localhost:53881/api"
+    "apiUrl": "https://ozeapi.azurewebsites.net/api"
 }

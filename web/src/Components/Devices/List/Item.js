@@ -8,8 +8,8 @@ class Item extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            actionsOpen: false,
-            detailsOpen: false
+            actionsOpen: true,
+            detailsOpen: true
         };
     }
 
@@ -59,11 +59,34 @@ class Item extends React.Component {
         await httpClient.SendWithData(url, request, this.props.getItems)
     }
 
+    getDeviceType = () => {
+        if (this.props.device.type === "energyGenerator") {
+            return "Energy generator"
+        }
+        if (this.props.device.type === "energyConsumer") {
+            return "Energy consumer"
+        }
+    }
+
+    getDeviceMarker = () => {
+        if (this.props.device.type === "energyGenerator") {
+            return <Row>
+                <Col><h5 className="energyGenerator">This device generate energy</h5></Col>
+            </Row>
+        }
+        if (this.props.device.type === "energyConsumer") {
+            return <Row>
+                <Col><h5 className="energyConsumer">This device consume energy</h5></Col>
+            </Row>
+        }
+    }
 
     render() {
         return <div>
             <Card body outline color="info" onClick={this.toggleActions} className="text-center">
                 <CardTitle><h3>Device {this.props.device.name}</h3></CardTitle>
+                <br />
+                {this.getDeviceMarker()}
                 <br />
                 <Collapse isOpen={this.state.actionsOpen}>
                     <Row>
@@ -75,7 +98,7 @@ class Item extends React.Component {
                 </Collapse>
                 <br />
                 <Collapse isOpen={this.state.detailsOpen}>
-                    <hr className="hrClass"/>
+                    <hr className="hrClass" />
                     <Row>
                         <Col>
                             <Row>
@@ -98,10 +121,19 @@ class Item extends React.Component {
                                     <h5>{this.props.device.address}</h5>
                                 </Col>
                             </Row>
+                            <br />
+                            <Row>
+                                <Col>
+                                    <h5>Device type: </h5>
+                                </Col>
+                                <Col>
+                                    <h5>{this.getDeviceType()}</h5>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                     <br />
-                    <hr className="hrClass"/>
+                    <hr className="hrClass" />
                     <Row>
                         <Col>
                             <Row>
@@ -133,6 +165,7 @@ class Item extends React.Component {
                                     <h5>{this.props.device.lastMeasurementDate}</h5>
                                 </Col>
                             </Row>
+                            <br />
                         </Col>
                     </Row>
                 </Collapse>

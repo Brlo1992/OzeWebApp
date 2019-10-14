@@ -26,6 +26,18 @@
   background-color: #17a2b8;
 }
 
+.energyGenerator{
+  border-radius: 10px;
+  padding: 10px;
+  background-color: yellowgreen;
+}
+
+.energyConsumer{
+  border-radius: 10px;
+  padding: 10px;
+  background-color: red;
+}
+
 .summaryColumn{
   border: 2px solid green;
   border-radius: 10px;
