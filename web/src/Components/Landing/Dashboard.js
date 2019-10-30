@@ -105,12 +105,6 @@ export default class Dashboard extends React.Component {
                             <CardText>Manage devices connected to the prosumer installation</CardText>
                             <Button color="success" onClick={() => { this.props.history.push("/devices") }}>Devices</Button>
                         </Card>
-                        <Card body >
-                            <CardTitle>Forecasts</CardTitle>
-                            <br />
-                            <CardText>Manage forecast which base on the collected data and weather forecast</CardText>
-                            <Button color="warning" onClick={() => { this.props.history.push("/forecasts") }}>Forecasts</Button>
-                        </Card>
                     </CardGroup>
                 </Col>
             </Row>
